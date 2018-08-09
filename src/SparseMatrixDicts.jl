@@ -11,8 +11,11 @@ __precompile__()
 
 module SparseMatrixDicts
 
+import LinearAlgebra: Symmetric
+import SparseArrays: AbstractSparseMatrix, SparseMatrixCSC, nnz, findnz, sparse
+
 import Base: size, show, setindex!, getindex, copy, vec, transpose,
-             haskey, nnz, fill, fill!, similar, findnz, sparse
+             haskey, fill, fill!, similar
 
 export SparseMatrixDict
 
