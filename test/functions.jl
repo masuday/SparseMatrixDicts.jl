@@ -60,7 +60,7 @@ function generate_range(IDXt, lb::Integer, ub::Integer)
    n = ub-lb+1
    if IDXt<:Number
       return rand(lb:ub),1
-   elseif IDXt<:Range
+   elseif IDXt<:AbstractRange
       lower = max(1,rand(lb:div(n,2)))
       upper = max(1,rand(div(n,2):ub))
       steps = max(1,rand(1:div(n,4)))

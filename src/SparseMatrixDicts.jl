@@ -12,7 +12,7 @@ __precompile__()
 module SparseMatrixDicts
 
 import LinearAlgebra: Symmetric
-import SparseArrays: AbstractSparseArray, SparseMatrix, SparseMatrixCSC,
+import SparseArrays: AbstractSparseArray, SparseMatrixCSC,
                      nnz, findnz, nzrange, sparse
 
 import Base: size, show, setindex!, getindex, copy, vec, transpose,
@@ -26,7 +26,7 @@ export SparseMatrixDict
 Matrix type for storing sparse matrices in the
 Dictionary format as Dict{Tuple{Ti,Ti},Tv}.
 """
-struct SparseMatrixDict{Tv,Ti<:Integer} <: AbstractSparseMatrix{Tv,Ti}
+struct SparseMatrixDict{Tv,Ti<:Integer} <: AbstractSparseArray{Tv,Ti,2}
    m::Int                      # Number of rows
    n::Int                      # Number of columns
    dict::Dict{Tuple{Ti,Ti},Tv} # Stored values
