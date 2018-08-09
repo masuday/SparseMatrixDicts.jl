@@ -37,13 +37,13 @@ end
    n = 20
    r = 0.5
    ntests = 10
-   for Tx in (Matrix)
-      for Tv in (Float64)
-         for Ti in (Int64)
+   for Tx in (Matrix,)
+      for Tv in (Float64,)
+         for Ti in (Int64,)
             for round=1:ntests
                # conversion
                println("DO!")
-               #M = make_test_matrix(Tx,Tv,m,n,r)
+               M = make_test_matrix(Tx,Tv,m,n,r)
                #A = convert_test_to_dict(M,Ti)
                #@test eltype(M)==eltype(A.dict.vals)
                #@test issamematrix(A,M)
