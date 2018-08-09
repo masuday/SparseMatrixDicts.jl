@@ -151,8 +151,11 @@ end
                   A[I,J] = V
                   @show M[I,J]
                   M[I,J] .= V
+                  @show "X"
                   X = A[I,J]
+                  @show "Y"
                   Y = M[I,J]
+                  @show "Y2"
                   if lenI==1 && lenJ>1
                      Y = reshape(Y,1,length(Y))
                   elseif lenI>1 && lenJ==1
@@ -161,14 +164,19 @@ end
                   @test issamematrix(A,M)
                   @test issamematrix(X,Y)
                   # update
+                  @show "UpdateB"
                   B[I,J] = B[I,J] .+ V
+                  @show "UpdatN"
                   if length(size(N[I,J]))==1 && (lenI>1 || lenJ>1)
                      N[I,J] = N[I,J] + vec(V)
                   else
                      N[I,J] = N[I,J] .+ V
                   end
+                  @show "UpdateX"
                   X = B[I,J]
+                  @show "UpdateY"
                   Y = N[I,J]
+                  @show "Y again"
                   if lenI==1 && lenJ>1
                      Y = reshape(Y,1,length(Y))
                   elseif lenI>1 && lenJ==1
