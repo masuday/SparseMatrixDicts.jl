@@ -31,7 +31,7 @@ include("functions.jl")
 end
 
 # simple comparison
-@testset "Copy and Conversion   " begin
+@testset "Copy and Conversion 0 " begin
    # to/from dense/sparse matrix
    m = 25
    n = 20
@@ -45,7 +45,7 @@ end
                M = make_test_matrix(Tx,Tv,m,n,r)
                A = convert_test_to_dict(M,Ti)
                #@test eltype(M)==eltype(A.dict.vals)
-               @test issamematrix(A,M)
+               #@test issamematrix(A,M)
                #M = Matrix{Tv}(A)
                #@test eltype(M)==eltype(A.dict.vals)
                #@test issamematrix(A,M)
