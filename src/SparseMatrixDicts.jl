@@ -58,7 +58,8 @@ end
 
 @inbounds function SparseMatrixDict{Tv,Ti}(M::AbstractArray) where {Tv,Ti<:Integer}
    (m, n) = size(M)
-   (I, J, V) = findnz(M)
+   #(I, J, V) = findnz(M)
+   (I, J, V) = (begin; I=findall(!iszero,M); (getindex.(I, 1), getindex.(I, 2), M[I]); end)
    nnz = length(I)
    A = SparseMatrixDict{Tv,eltype(I)}(m, n)
    for i=1:nnz
@@ -165,9 +166,9 @@ function findnz(A::SparseMatrixDict{Tv,Ti}) where {Tv,Ti<:Integer}
    return (I, J, NZs)
 end
 
-function findnz(A::AbstractMatrix)
-   return (begin; I=findall(!iszero,A); (getindex.(I, 1), getindex.(I, 2), A[I]); end)
-end
+#function findnz(A::AbstractMatrix)
+#   return (begin; I=findall(!iszero,A); (getindex.(I, 1), getindex.(I, 2), A[I]); end)
+#end
 
 function sparse(A::SparseMatrixDict{Tv,Ti}) where {Tv,Ti<:Integer}
    (I, J, NZs) = findnz(A)
