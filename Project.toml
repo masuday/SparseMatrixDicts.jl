@@ -1,0 +1,6 @@
+authors = ["Yutaka Masuda <yutaka@uga.edu>"]
+name = "SparseMatrixDicts"
+uuid = "5cb6c4b0-9b79-11e8-24c9-f9621d252589"
+version = "0.1.0"
+
+[deps]
