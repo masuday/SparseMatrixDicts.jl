@@ -126,10 +126,10 @@ end
    m = 17
    n = 21
    r = 0.5
-   ntests = 20
+   ntests = 1
    Tx = Matrix
-   for Tv in (Float64)
-      for Ti in (Int64)
+   for Tv in (Float64,)
+      for Ti in (Int64,)
          # conversion
          M = make_test_matrix(Tx,Tv,m,n,r)
          A = convert_test_to_dict(M,Ti)
