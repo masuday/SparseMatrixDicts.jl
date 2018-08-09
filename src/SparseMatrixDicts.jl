@@ -152,8 +152,8 @@ function findnz(A::SparseMatrixDict{Tv,Ti}) where {Tv,Ti<:Integer}
    nnzA = nnz(A)
    I = zeros(Int, nnzA)
    J = zeros(Int, nnzA)
-   #NZs = Vector{Tv}(undef, nnzA)
-   NZs = Vector{Tv}(nnzA)
+   NZs = Vector{Tv}(undef, nnzA)
+   #NZs = Vector{Tv}(nnzA)
    cnt = 1
    if nnzA>1
       for (i,j) in collect(keys(A.dict))
