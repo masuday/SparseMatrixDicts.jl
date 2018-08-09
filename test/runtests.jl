@@ -148,10 +148,11 @@ end
                   end
                   # substitution
                   A[I,J] = V
-                  if (lenI>1 && lenJ>1)
-                     M[I,J] .= V
-                  elseif (lenI==1 && lenJ==1)
+                  if (length(I)==0 && length(J)==0)
+                     # scalar
                      M[I,J] = V
+                  if (lenI>1 && lenJ>1) || (lenI==1 && lenJ==1)
+                     M[I,J] .= V
                   else
                      M[I,J] = V
                   end
