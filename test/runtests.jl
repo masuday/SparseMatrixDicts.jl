@@ -143,18 +143,18 @@ end
                   I,lenI = generate_range(IDXi, 1, m)
                   if lenI==1 && lenJ==1
                      V = rand(Tv)
-                  elseif lenI==1
-                     V = rand(Tv,lenJ)
-                  elseif lenJ==1
-                     V = rand(Tv,lenI)
                   else
                      V = rand(Tv,lenI,lenJ)
                   end
                   # substitution
                   @show I,J,V,typeof(I),typeof(J),typeof(V)
-                  A[I,J] .= V
+                  A[I,J] = V
                   @show M[I,J]
-                  M[I,J] .= V
+                  if (lenI>1 || lenJ>1)
+                     M[I,J] .= V
+                  else
+                     M[I,J] = V
+                  end
                   @show "X"
                   X = A[I,J]
                   @show "Y"
