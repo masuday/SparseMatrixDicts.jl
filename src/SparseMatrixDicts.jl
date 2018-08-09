@@ -13,7 +13,7 @@ module SparseMatrixDicts
 
 import LinearAlgebra: Symmetric
 import SparseArrays: AbstractSparseArray, SparseMatrixCSC,
-                     nnz, nzrange, sparse
+                     nnz, nzrange, sparse, findnz
 
 import Base: size, show, setindex!, getindex, copy, vec, transpose,
              haskey, fill, fill!, similar
@@ -165,9 +165,9 @@ function findnz(A::SparseMatrixDict{Tv,Ti}) where {Tv,Ti<:Integer}
    return (I, J, NZs)
 end
 
-function findnz(A::AbstractMatrix)
-   return (begin; I=findall(!iszero,A); (getindex.(I, 1), getindex.(I, 2), A[I]); end)
-end
+#function findnz(A::AbstractMatrix)
+#   return (begin; I=findall(!iszero,A); (getindex.(I, 1), getindex.(I, 2), A[I]); end)
+#end
 
 function sparse(A::SparseMatrixDict{Tv,Ti}) where {Tv,Ti<:Integer}
    (I, J, NZs) = findnz(A)
