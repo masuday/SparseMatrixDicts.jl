@@ -149,6 +149,7 @@ end
                   # substitution
                   @show I,J,V
                   A[I,J] = V
+                  @show M[I,J]
                   M[I,J] .= V
                   X = A[I,J]
                   Y = M[I,J]
