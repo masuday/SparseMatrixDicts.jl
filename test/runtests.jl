@@ -147,7 +147,8 @@ end
                      V = rand(Tv,lenI,lenJ)
                   end
                   # substitution
-                  A[I,J] .= V
+                  @show I,J,V
+                  A[I,J] = V
                   M[I,J] = V
                   X = A[I,J]
                   Y = M[I,J]
