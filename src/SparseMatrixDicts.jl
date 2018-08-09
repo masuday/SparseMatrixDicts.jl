@@ -56,18 +56,13 @@ end
    return A
 end
 
-function SparseMatrixDict{Tv,Ti}(M::AbstractArray) where {Tv,Ti<:Integer}
+@inbounds function SparseMatrixDict{Tv,Ti}(M::AbstractArray) where {Tv,Ti<:Integer}
    (m, n) = size(M)
-   @show m,n
    (I, J, V) = findnz(M)
-   @show I,J,V
    nnz = length(I)
-   @show nnz
    A = SparseMatrixDict{Tv,eltype(I)}(m, n)
-   @show A
    for i=1:nnz
       A[(I[i],J[i])] = convert(Tv,V[i])
-      @show i,(I[i],J[i]),convert(Tv,V[i])
    end
    return A
 end

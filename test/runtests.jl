@@ -30,41 +30,6 @@ include("functions.jl")
    end
 end
 
-# simple comparison
-@testset "Copy and Conversion 0 " begin
-   # to/from dense/sparse matrix
-   m = 25
-   n = 20
-   r = 0.5
-   ntests = 1
-   for Tx in (Matrix,SparseMatrixCSC)
-      for Tv in (Float64,Float32,Float16,Int64,Int32,Int16,Int8,Int)
-         for Ti in (Int64,Int32,Int16,Int8,Int,Any)
-            for round=1:ntests
-               # conversion
-               @show Tx,Tv,Ti,round
-               M = make_test_matrix(Tx,Tv,m,n,r)
-               @show M
-               A = convert_test_to_dict(M,Ti)
-               @show A
-               @test eltype(M)==eltype(A.dict.vals)
-               @show eltype(M)
-               @test issamematrix(A,M)
-               @show issamematrix(A,M)
-               #M = Matrix{Tv}(A)
-               #@test eltype(M)==eltype(A.dict.vals)
-               #@test issamematrix(A,M)
-               # copy
-               #B = copy(A)
-               #@test eltype(B.dict.vals)==eltype(A.dict.vals)
-               #@test eltype(B.dict.keys[1])==eltype(A.dict.keys[1])
-               #@test issamematrix(A,B)
-            end
-         end
-      end
-   end
-end
-
 # allowance of different types
 @testset "Copy and Conversion   " begin
    # to/from dense/sparse matrix
