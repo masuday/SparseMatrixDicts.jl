@@ -121,80 +121,6 @@ end
    end
 end
 
-# setindex test
-@testset "SetIndex 0            " begin
-   m = 17
-   n = 21
-   r = 0.5
-   ntests = 1
-   Tx = Matrix
-   for Tv in (Float64,)
-      for Ti in (Int64,)
-         # conversion
-         M = make_test_matrix(Tx,Tv,m,n,r)
-         A = convert_test_to_dict(M,Ti)
-         N = copy(M)
-         B = copy(A)
-         # indices
-         for IDXj in (AbstractRange,)
-            for IDXi in (Number,)
-               for round=1:ntests
-                  J,lenJ = generate_range(IDXj, 1, n)
-                  I,lenI = generate_range(IDXi, 1, m)
-                  if lenI==1 && lenJ==1
-                     V = rand(Tv)
-                  else
-                     V = rand(Tv,lenI,lenJ)
-                  end
-                  # substitution
-                  @show I,J,V,typeof(I),typeof(J),typeof(V)
-                  A[I,J] = V
-                  @show M[I,J]
-                  if lenI>1 && lenJ>1
-                     M[I,J] .= V
-                  else
-                     M[I,J] = V
-                  end
-                  @show "X"
-                  X = A[I,J]
-                  @show "Y"
-                  Y = M[I,J]
-                  @show "Y2"
-                  if lenI==1 && lenJ>1
-                     Y = reshape(Y,1,length(Y))
-                  elseif lenI>1 && lenJ==1
-                     Y = reshape(Y,length(Y),1)
-                  end
-                  @test issamematrix(A,M)
-                  @test issamematrix(X,Y)
-                  # update
-                  @show "UpdateB"
-                  B[I,J] = B[I,J] .+ V
-                  @show "UpdatN"
-                  if length(size(N[I,J]))==1 && (lenI>1 || lenJ>1)
-                     N[I,J] = N[I,J] + vec(V)
-                  else
-                     N[I,J] = N[I,J] .+ V
-                  end
-                  @show "UpdateX"
-                  X = B[I,J]
-                  @show "UpdateY"
-                  Y = N[I,J]
-                  @show "Y again"
-                  if lenI==1 && lenJ>1
-                     Y = reshape(Y,1,length(Y))
-                  elseif lenI>1 && lenJ==1
-                     Y = reshape(Y,length(Y),1)
-                  end
-                  @test issamematrix(B,N)
-                  @test issamematrix(X,Y)
-               end
-            end
-         end
-      end
-   end
-end
-
 # setindex
 @testset "SetIndex              " begin
    m = 17
@@ -221,15 +147,14 @@ end
                      V = rand(Tv,lenI,lenJ)
                   end
                   # substitution
-                  @show I,J,V
                   A[I,J] = V
-                  @show M[I,J]
-                  M[I,J] .= V
-                  @show "X"
+                  if lenI>1 && lenJ>1
+                     M[I,J] .= V
+                  else
+                     M[I,J] = V
+                  end
                   X = A[I,J]
-                  @show "Y"
                   Y = M[I,J]
-                  @show "Y2"
                   if lenI==1 && lenJ>1
                      Y = reshape(Y,1,length(Y))
                   elseif lenI>1 && lenJ==1
@@ -238,19 +163,14 @@ end
                   @test issamematrix(A,M)
                   @test issamematrix(X,Y)
                   # update
-                  @show "UpdateB"
                   B[I,J] = B[I,J] .+ V
-                  @show "UpdatN"
                   if length(size(N[I,J]))==1 && (lenI>1 || lenJ>1)
                      N[I,J] = N[I,J] + vec(V)
                   else
                      N[I,J] = N[I,J] .+ V
                   end
-                  @show "UpdateX"
                   X = B[I,J]
-                  @show "UpdateY"
                   Y = N[I,J]
-                  @show "Y again"
                   if lenI==1 && lenJ>1
                      Y = reshape(Y,1,length(Y))
                   elseif lenI>1 && lenJ==1
