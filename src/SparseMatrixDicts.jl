@@ -13,7 +13,7 @@ module SparseMatrixDicts
 
 import LinearAlgebra: Symmetric
 import SparseArrays: AbstractSparseArray, SparseMatrixCSC,
-                     nnz, nzrange, sparse
+                     nnz, findnz, nzrange, sparse
 
 import Base: size, show, setindex!, getindex, copy, vec, transpose,
              haskey, fill, fill!, similar
