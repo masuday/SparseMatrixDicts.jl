@@ -143,6 +143,10 @@ end
                   I,lenI = generate_range(IDXi, 1, m)
                   if lenI==1 && lenJ==1
                      V = rand(Tv)
+                  elseif lenI==1
+                     V = rand(Tv,lenJ)
+                  elseif lenJ==1
+                     V = rand(Tv,lenI)
                   else
                      V = rand(Tv,lenI,lenJ)
                   end
