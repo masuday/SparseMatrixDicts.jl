@@ -152,7 +152,7 @@ end
                   end
                   # substitution
                   @show I,J,V,typeof(I),typeof(J),typeof(V)
-                  A[I,J] = V
+                  A[I,J] .= V
                   @show M[I,J]
                   M[I,J] .= V
                   @show "X"
