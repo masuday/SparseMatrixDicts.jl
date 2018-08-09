@@ -13,7 +13,7 @@ module SparseMatrixDicts
 
 import LinearAlgebra: Symmetric
 import SparseArrays: AbstractSparseArray, SparseMatrixCSC,
-                     nnz, nzrange, sparse
+                     nnz, nzrange, sparse, findnz
 
 import Base: size, show, setindex!, getindex, copy, vec, transpose,
              haskey, fill, fill!, similar
@@ -43,7 +43,7 @@ struct SparseMatrixDict{Tv,Ti<:Integer} <: AbstractSparseArray{Tv,Ti,2}
    end
 end
 
-@inbounds function SparseMatrixDict{Tv,Ti}(S::SparseMatrixCSC{Tv,Ti}) where {Tv,Ti<:Integer}
+@inbounds function SparseMatrixDict{Tv,Ti}(S::SparseMatrixCSC{Tv,Tj}) where {Tv,Ti<:Integer,Tj<:Integer}
    (m, n) = size(S)
    A = SparseMatrixDict{Tv,Ti}(m, n)
    for Sj in 1:S.n
