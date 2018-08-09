@@ -159,11 +159,11 @@ end
                   @test issamematrix(A,M)
                   @test issamematrix(X,Y)
                   # update
-                  B[I,J] = B[I,J] + V
+                  B[I,J] = B[I,J] .+ V
                   if length(size(N[I,J]))==1 && (lenI>1 || lenJ>1)
                      N[I,J] = N[I,J] + vec(V)
                   else
-                     N[I,J] = N[I,J] + V
+                     N[I,J] = N[I,J] .+ V
                   end
                   X = B[I,J]
                   Y = N[I,J]
