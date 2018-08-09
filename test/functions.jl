@@ -74,3 +74,8 @@ function generate_range(IDXt, lb::Integer, ub::Integer)
       return Colon(),n
    end
 end
+
+# my findnz
+function myfindnz(A)
+   return (begin; I=findall(!iszero,A); (getindex.(I, 1), getindex.(I, 2), A[I]); end)
+end

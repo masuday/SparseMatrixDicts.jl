@@ -23,7 +23,7 @@ include("functions.jl")
          M[i,j] = val
       end
    end
-   @test nnz(A)==length(findnz(Matrix(M))[1])
+   @test nnz(A)==length( myfindnz(Matrix(M))[1] )
    @test nnz(A)==nnz(B)
    for key in collect(keys(A.dict))
       @test B[key]==A[key]
