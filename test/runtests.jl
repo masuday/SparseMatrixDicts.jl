@@ -136,8 +136,8 @@ end
          N = copy(M)
          B = copy(A)
          # indices
-         for IDXj in (AbstractRange)
-            for IDXi in (Number)
+         for IDXj in (AbstractRange,)
+            for IDXi in (Number,)
                for round=1:ntests
                   J,lenJ = generate_range(IDXj, 1, n)
                   I,lenI = generate_range(IDXi, 1, m)
