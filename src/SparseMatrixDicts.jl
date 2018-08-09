@@ -12,7 +12,8 @@ __precompile__()
 module SparseMatrixDicts
 
 import LinearAlgebra: Symmetric
-import SparseArrays: AbstractSparseMatrix, SparseMatrixCSC, nnz, findnz, sparse
+import SparseArrays: AbstractSparseArray, SparseMatrixCSC,
+                     nnz, nzrange, sparse, findnz
 
 import Base: size, show, setindex!, getindex, copy, vec, transpose,
              haskey, fill, fill!, similar
@@ -25,7 +26,7 @@ export SparseMatrixDict
 Matrix type for storing sparse matrices in the
 Dictionary format as Dict{Tuple{Ti,Ti},Tv}.
 """
-struct SparseMatrixDict{Tv,Ti<:Integer} <: AbstractSparseMatrix{Tv,Ti}
+struct SparseMatrixDict{Tv,Ti<:Integer} <: AbstractSparseArray{Tv,Ti,2}
    m::Int                      # Number of rows
    n::Int                      # Number of columns
    dict::Dict{Tuple{Ti,Ti},Tv} # Stored values
@@ -42,7 +43,7 @@ struct SparseMatrixDict{Tv,Ti<:Integer} <: AbstractSparseMatrix{Tv,Ti}
    end
 end
 
-@inbounds function SparseMatrixDict{Tv,Ti}(S::SparseMatrixCSC{Tv,Ti}) where {Tv,Ti<:Integer}
+@inbounds function SparseMatrixDict{Tv,Ti}(S::SparseMatrixCSC{Tv,Tj}) where {Tv,Ti<:Integer,Tj<:Integer}
    (m, n) = size(S)
    A = SparseMatrixDict{Tv,Ti}(m, n)
    for Sj in 1:S.n
@@ -57,7 +58,8 @@ end
 
 @inbounds function SparseMatrixDict{Tv,Ti}(M::AbstractArray) where {Tv,Ti<:Integer}
    (m, n) = size(M)
-   (I, J, V) = findnz(M)
+   #(I, J, V) = findnz(M)
+   (I, J, V) = (begin; I=findall(!iszero,M); (getindex.(I, 1), getindex.(I, 2), M[I]); end)
    nnz = length(I)
    A = SparseMatrixDict{Tv,eltype(I)}(m, n)
    for i=1:nnz
@@ -163,6 +165,10 @@ function findnz(A::SparseMatrixDict{Tv,Ti}) where {Tv,Ti<:Integer}
    end
    return (I, J, NZs)
 end
+
+#function findnz(A::AbstractMatrix)
+#   return (begin; I=findall(!iszero,A); (getindex.(I, 1), getindex.(I, 2), A[I]); end)
+#end
 
 function sparse(A::SparseMatrixDict{Tv,Ti}) where {Tv,Ti<:Integer}
    (I, J, NZs) = findnz(A)

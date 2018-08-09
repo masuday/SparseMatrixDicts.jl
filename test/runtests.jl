@@ -1,5 +1,7 @@
 using SparseMatrixDicts
-using Base.Test
+using Test
+using SparseArrays
+
 
 # Local functions:
 #   issamematrix, make_test_matrix, convert_test_to_dict
@@ -21,7 +23,7 @@ include("functions.jl")
          M[i,j] = val
       end
    end
-   @test nnz(A)==length(findnz(Matrix(M))[1])
+   @test nnz(A)==length( myfindnz(Matrix(M))[1] )
    @test nnz(A)==nnz(B)
    for key in collect(keys(A.dict))
       @test B[key]==A[key]
@@ -72,8 +74,8 @@ end
          M = make_test_matrix(Tx,Tv,m,n,r)
          A = convert_test_to_dict(M,Ti)
          # indices
-         for IDXj in (Number,Range,Array,Bool,Colon)
-            for IDXi in (Number,Range,Array,Bool,Colon)
+         for IDXj in (Number,AbstractRange,Array,Bool,Colon)
+            for IDXi in (Number,AbstractRange,Array,Bool,Colon)
                for round=1:ntests
                   J,lenJ = generate_range(IDXj, 1, n)
                   I,lenI = generate_range(IDXi, 1, m)
@@ -134,8 +136,8 @@ end
          N = copy(M)
          B = copy(A)
          # indices
-         for IDXj in (Number,Range,Array,Bool,Colon)
-            for IDXi in (Number,Range,Array,Bool,Colon)
+         for IDXj in (Number,AbstractRange,Array,Bool,Colon)
+            for IDXi in (Number,AbstractRange,Array,Bool,Colon)
                for round=1:ntests
                   J,lenJ = generate_range(IDXj, 1, n)
                   I,lenI = generate_range(IDXi, 1, m)
@@ -146,7 +148,14 @@ end
                   end
                   # substitution
                   A[I,J] = V
-                  M[I,J] = V
+                  if (isa(I,Integer) && isa(J,Integer))
+                     # scalar
+                     M[I,J] = V
+                  elseif (lenI>1 && lenJ>1) || (lenI==1 && lenJ==1)
+                     M[I,J] .= V
+                  else
+                     M[I,J] = V
+                  end
                   X = A[I,J]
                   Y = M[I,J]
                   if lenI==1 && lenJ>1
@@ -157,11 +166,11 @@ end
                   @test issamematrix(A,M)
                   @test issamematrix(X,Y)
                   # update
-                  B[I,J] = B[I,J] + V
+                  B[I,J] = B[I,J] .+ V
                   if length(size(N[I,J]))==1 && (lenI>1 || lenJ>1)
                      N[I,J] = N[I,J] + vec(V)
                   else
-                     N[I,J] = N[I,J] + V
+                     N[I,J] = N[I,J] .+ V
                   end
                   X = B[I,J]
                   Y = N[I,J]
