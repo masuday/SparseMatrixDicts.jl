@@ -150,7 +150,7 @@ end
                   @show I,J,V,typeof(I),typeof(J),typeof(V)
                   A[I,J] = V
                   @show M[I,J]
-                  if (lenI>1 || lenJ>1)
+                  if lenI>1 && lenJ>1
                      M[I,J] .= V
                   else
                      M[I,J] = V
