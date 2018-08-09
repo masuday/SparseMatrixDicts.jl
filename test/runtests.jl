@@ -42,7 +42,8 @@ end
          for Ti in (Int64)
             for round=1:ntests
                # conversion
-               M = make_test_matrix(Tx,Tv,m,n,r)
+               println("DO!")
+               #M = make_test_matrix(Tx,Tv,m,n,r)
                #A = convert_test_to_dict(M,Ti)
                #@test eltype(M)==eltype(A.dict.vals)
                #@test issamematrix(A,M)
