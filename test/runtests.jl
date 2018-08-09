@@ -149,7 +149,7 @@ end
                   # substitution
                   @show I,J,V
                   A[I,J] = V
-                  M[I,J] = V
+                  M[I,J] .= V
                   X = A[I,J]
                   Y = M[I,J]
                   if lenI==1 && lenJ>1
