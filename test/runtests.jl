@@ -148,7 +148,7 @@ end
                   end
                   # substitution
                   A[I,J] = V
-                  if (length(I)==0 && length(J)==0)
+                  if (isa(I,Integer) && isa(J,Integer))
                      # scalar
                      M[I,J] = V
                   elseif (lenI>1 && lenJ>1) || (lenI==1 && lenJ==1)
