@@ -1,5 +1,7 @@
 using SparseMatrixDicts
-using Base.Test
+using Test
+using SparseArrays
+
 
 # Local functions:
 #   issamematrix, make_test_matrix, convert_test_to_dict
