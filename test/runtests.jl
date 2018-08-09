@@ -74,8 +74,8 @@ end
          M = make_test_matrix(Tx,Tv,m,n,r)
          A = convert_test_to_dict(M,Ti)
          # indices
-         for IDXj in (Number,Range,Array,Bool,Colon)
-            for IDXi in (Number,Range,Array,Bool,Colon)
+         for IDXj in (Number,AbstractRange,Array,Bool,Colon)
+            for IDXi in (Number,AbstractRange,Array,Bool,Colon)
                for round=1:ntests
                   J,lenJ = generate_range(IDXj, 1, n)
                   I,lenI = generate_range(IDXi, 1, m)
@@ -136,8 +136,8 @@ end
          N = copy(M)
          B = copy(A)
          # indices
-         for IDXj in (Number,Range,Array,Bool,Colon)
-            for IDXi in (Number,Range,Array,Bool,Colon)
+         for IDXj in (Number,AbstractRange,Array,Bool,Colon)
+            for IDXi in (Number,AbstractRange,Array,Bool,Colon)
                for round=1:ntests
                   J,lenJ = generate_range(IDXj, 1, n)
                   I,lenI = generate_range(IDXi, 1, m)
