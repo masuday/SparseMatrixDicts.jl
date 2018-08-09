@@ -43,7 +43,7 @@ end
             for round=1:ntests
                # conversion
                M = make_test_matrix(Tx,Tv,m,n,r)
-               A = convert_test_to_dict(M,Ti)
+               #A = convert_test_to_dict(M,Ti)
                #@test eltype(M)==eltype(A.dict.vals)
                #@test issamematrix(A,M)
                #M = Matrix{Tv}(A)
