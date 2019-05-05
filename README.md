@@ -2,8 +2,9 @@
 
 ## Quick start
 
-Creates s sparse matrix with a hash table.
-It can be used as a dense matrix.
+This package creates a sparse matrix as Dictionary.
+You can convert the dictionary to a SparseCSC matrix or a dense matrix.
+It is useful when the nonzero elements randomly occur and you can not prepare the sparse storage before you see the actual elements.
 
 ```
 using SparseMatrixDicts
@@ -19,5 +20,5 @@ dA = Matrix(A)
 sA = SparseMatrixCSC(A)
 
 # make a symmetric sparse matrix
-symA = Symmetric(SparseMatrixCSC(A),:U)  # :L for lower
+symA = Symmetric(SparseMatrixCSC(A),:U)  # :U for upper
 ```
