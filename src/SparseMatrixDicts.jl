@@ -4,8 +4,8 @@ __precompile__()
 # sparse matrix with dictionary (a.k.a. hash matrix)
 
 # The sparse dictionary matrix (smd) is assumed to be used as
-# a temporary storage to setup a CSC matrix. So this package
-# only supports for limited functions for the purpose.
+# temporary storage to set up a CSC matrix. So this package
+# only supports limited functions for the purpose.
 
 # Some functions are derived from sparsematrix.jl.
 
