@@ -1,5 +1,7 @@
 # SparseMatrixDicts
 
+[![Build Status](https://travis-ci.org/masuday/SparseMatrixDicts.jl.svg?branch=master)](https://travis-ci.org/masuday/SparseMatrixDicts.jl)
+
 ## Quick start
 
 This package creates a sparse matrix as Dictionary.
