@@ -99,8 +99,25 @@ function show(io::IOContext, A::SparseMatrixDict)
    if nnz(A) == 0
       return show(io, MIME("text/plain"), A)
    end
-   for key in sort(collect(keys(A.dict)))
-      print(io, "\n  [", key[1], ", ", key[2], "]  =  ", A.dict[key])
+   rows = displaysize(io)[1]
+   if nnz(A)+1 > rows
+      # compact print
+      lb = round(Int,(rows-3)/2)
+      ub = nnz(A)-lb+3
+      if lb+(nnz(A)-ub+1)+4>=rows; ub=ub+1 end
+      counter = 0
+      for key in sort(collect(keys(A.dict)))
+         counter = counter + 1
+         if counter<=lb || counter>=ub
+            print(io, "\n  [", key[1], ", ", key[2], "]  =  ", A.dict[key])
+         elseif counter==lb+1
+            print(io, "\n  \u22ee")
+         end
+      end
+   else
+      for key in sort(collect(keys(A.dict)))
+         print(io, "\n  [", key[1], ", ", key[2], "]  =  ", A.dict[key])
+      end
    end
 end
 
