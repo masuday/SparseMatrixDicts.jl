@@ -31,6 +31,8 @@ dA = Matrix(A)
 # convert to sparse matrix CSC
 sA = sparse(A)
 
-# make a symmetric sparse matrix
-symA = Symmetric(SparseMatrixCSC(A),:U)  # :U for upper
+# make a symmetric sparse matrix for a square matrix
+symA = Symmetric(sparse(A),:U)  # :U for upper
 ```
+
+You can use `SparseMatrixCSC(A)` instead of `sparse(A)`.
