@@ -26,7 +26,7 @@ A[2,5] = 1.0
 dA = Matrix(A)
 
 # convert to sparse matrix CSC
-sA = SparseMatrixCSC(A)
+sA = sparse(A)
 
 # make a symmetric sparse matrix
 symA = Symmetric(SparseMatrixCSC(A),:U)  # :U for upper
