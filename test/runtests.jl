@@ -187,3 +187,15 @@ end
       end
    end
 end
+
+@testset "Dimension             " begin
+   n = 5
+   A = SparseMatrixDict(n,n)
+   A[1,1] = 2.0
+   A[2,5] = 1.0
+   dA = Matrix(A)
+   sA = sparse(A)
+   @test (sA.m == A.m) && (sA.m == size(dA,1))
+   @test (sA.n == A.n) && (sA.n == size(dA,2))
+   @test sparse(A) == SparseMatrixCSC(A)
+end

@@ -192,9 +192,12 @@ end
 
 function sparse(A::SparseMatrixDict{Tv,Ti}) where {Tv,Ti<:Integer}
    (I, J, NZs) = findnz(A)
-   return sparse(I, J, NZs)
+   return sparse(I, J, NZs, A.m, A.n)
 end
 
+function SparseMatrixCSC(A::SparseMatrixDict{Tv,Ti}) where {Tv,Ti<:Integer}
+   return sparse(A)
+end
 
 # setindex
 
