@@ -14,7 +14,10 @@ A pair of indices (row *i* and column *j*) will be treated as a tuple `(i,j)` an
 ## Examples
 
 ```
+using SparseArrays
+using LinearAlgebra
 using SparseMatrixDicts
+
 n = 5
 A = SparseMatrixDict(n,n)  # default={Float64,Int}
 
