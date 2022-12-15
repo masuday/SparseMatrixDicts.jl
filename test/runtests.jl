@@ -1,7 +1,7 @@
 using SparseMatrixDicts
 using Test
 using SparseArrays
-
+using LinearAlgebra
 
 # Local functions:
 #   issamematrix, make_test_matrix, convert_test_to_dict
@@ -198,4 +198,13 @@ end
    @test (sA.m == A.m) && (sA.m == size(dA,1))
    @test (sA.n == A.n) && (sA.n == size(dA,2))
    @test sparse(A) == SparseMatrixCSC(A)
+end
+
+@testset "Discouragement        " begin
+   n = 5
+   A = SparseMatrixDict(n,n)
+   A[1,1] = 2.0
+   A[2,5] = 1.0
+   symA = Symmetric(A)
+   @test_throws DomainError sparse(symA)
 end

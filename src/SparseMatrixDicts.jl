@@ -199,6 +199,17 @@ function SparseMatrixCSC(A::SparseMatrixDict{Tv,Ti}) where {Tv,Ti<:Integer}
    return sparse(A)
 end
 
+# fail safe to discourage to perform sparse(Symmetric(SparseMatrixDict))
+function sparse(symA::Symmetric{Tv,SparseMatrixDict{Tv,Ti}}) where {Tv,Ti<:Integer}
+   throw(DomainError("Not support for sparse(Symmetric(SparseMatrixDict)); use Symmetric(sparse(SparseMatrixDict)) instead."))
+   return nothing
+end
+
+function SparseMatrixCSC(symA::Symmetric{Tv,SparseMatrixDict{Tv,Ti}}) where {Tv,Ti<:Integer}
+   return sparse(symA)
+end
+
+
 # setindex
 
 function setindex!(A::SparseMatrixDict{Tv,Ti}, v, i, j) where {Tv,Ti<:Integer}
