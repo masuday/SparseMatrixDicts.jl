@@ -232,6 +232,9 @@ end
    β = 1.5
    dC = α*dA + β*dB
    sC = copy(sA)
+   merged_add!(sC,sB,β)
+   @test dC ≈ Matrix(sC)
+   sC = copy(sA)
    merged_add!(sC,sB,α,β)
    @test dC ≈ Matrix(sC)
 
