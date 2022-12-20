@@ -212,11 +212,16 @@ end
 
 """
     merged_add!(A,B)
-    merged_add!(A,B, β=1.0)
+    merged_add!(A,B, α=1.0,β=1.0)
 
-It updates `A` by `A + βB` (i.e., performing `A = A + βB`). The default β is 1.0, which results in `A + B`.
+It updates `A` by `αA + βB` (i.e., performing `A = αA + βB`). The default (α,β) is (1.0,1.0), which results in `A + B`.
 """
-function merged_add!(A::SparseMatrixDict{Tv,Ti},B::SparseMatrixDict{Tv,Ti},β::Tv=1.0) where {Tv,Ti<:Integer}
+function merged_add!(A::SparseMatrixDict{Tv,Ti}, B::SparseMatrixDict{Tv,Ti}, α::Tv=1.0, β::Tv=1.0) where {Tv,Ti<:Integer}
+   if α!=1.0
+      for idx in keys(A.dict)
+         A[idx] = α*A[idx]
+      end   
+   end
    for idx in keys(B.dict)
       A[idx] = A[idx] + β*B[idx]
    end

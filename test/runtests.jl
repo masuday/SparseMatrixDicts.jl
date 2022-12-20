@@ -228,9 +228,17 @@ end
    @test typeof(sC) == typeof(sB)
    @test dC ≈ Matrix(sC)
 
+   α = 1.0
    β = 1.5
-   dC = dA + β*dB
+   dC = α*dA + β*dB
    sC = copy(sA)
-   merged_add!(sC,sB,β)
+   merged_add!(sC,sB,α,β)
+   @test dC ≈ Matrix(sC)
+
+   α = 2.2
+   β = 1.5
+   dC = α*dA + β*dB
+   sC = copy(sA)
+   merged_add!(sC,sB,α,β)
    @test dC ≈ Matrix(sC)
 end
