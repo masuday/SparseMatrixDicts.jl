@@ -208,3 +208,29 @@ end
    symA = Symmetric(A)
    @test_throws DomainError sparse(symA)
 end
+
+@testset "MergedAdd             " begin
+   dA = [
+      1 0 1
+      0 1 0
+      1 0 1
+    ] .+ 0.0
+   dB = [
+      1 0 1
+      0 1 1
+      1 1 0
+   ] .+ 0.0
+   dC = dA + dB
+   sA = SparseMatrixDict(dA)
+   sB = SparseMatrixDict(dB)
+   sC = copy(sA)
+   merged_add!(sC,sB)
+   @test typeof(sC) == typeof(sB)
+   @test dC ≈ Matrix(sC)
+
+   β = 1.5
+   dC = dA + β*dB
+   sC = copy(sA)
+   merged_add!(sC,sB,β)
+   @test dC ≈ Matrix(sC)
+end

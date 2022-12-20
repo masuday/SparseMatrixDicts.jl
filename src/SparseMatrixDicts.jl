@@ -19,6 +19,7 @@ import Base: size, show, setindex!, getindex, copy, vec, transpose,
              haskey, fill, fill!, similar
 
 export SparseMatrixDict
+export merged_add!
 
 """
     SparseMatrixDict{Tv,Ti<:Integer} <: AbstractSparseMatrix{Tv,Ti}
@@ -209,6 +210,17 @@ function SparseMatrixCSC(symA::Symmetric{Tv,SparseMatrixDict{Tv,Ti}}) where {Tv,
    return sparse(symA)
 end
 
+"""
+    merged_add!(A,B)
+    merged_add!(A,B, β=1.0)
+
+It updates `A` by `A + βB` (i.e., performing `A = A + βB`). The default β is 1.0, which results in `A + B`.
+"""
+function merged_add!(A::SparseMatrixDict{Tv,Ti},B::SparseMatrixDict{Tv,Ti},β::Tv=1.0) where {Tv,Ti<:Integer}
+   for idx in keys(B.dict)
+      A[idx] = A[idx] + β*B[idx]
+   end
+end
 
 # setindex
 
