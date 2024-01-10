@@ -1,5 +1,5 @@
 
-__precompile__()
+__precompile__(false)
 
 # sparse matrix with dictionary (a.k.a. hash matrix)
 
